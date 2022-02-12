@@ -7,6 +7,7 @@
       "esnext"
     ],
     "allowJs": true,
+    "checkJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -18,9 +19,20 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "noImplicitAny": false,
     "jsx": "react-jsx"
   },
+  
   "include": [
-    "src"
+    "src/**/*"
+  ],
+
+  "exclude": [
+    "node_modules",
+    "src/utils/**",
+    "src/theme/",
+    "src/theme/**",
+    "src/**/*.js",
+    "src/**/*.jsx"
   ]
 }
