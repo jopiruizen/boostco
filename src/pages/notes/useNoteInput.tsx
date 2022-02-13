@@ -66,9 +66,23 @@ function useNoteInput (props:any = {}) {
             />
         );
     }
+
+    function handleEdit (note) {
+        setInput({
+            ...note,
+        });
+        setOpen(true);
+    }
+
+    function handleDelete (note) {
+
+    }
+
     return {
         openNoteInput,
         renderNoteInput,
+        handleEdit,
+        handleDelete,
     }
 }
 

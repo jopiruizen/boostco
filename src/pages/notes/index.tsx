@@ -25,6 +25,8 @@ function NotesWrapper (props: NotesWrapperProps) {
     const {
         renderNoteInput,
         openNoteInput,
+        handleEdit,
+        handleDelete,
     } = useNoteInput();
 
     return (
@@ -33,6 +35,7 @@ function NotesWrapper (props: NotesWrapperProps) {
                 <Notes
                     noteList={notesList}
                     onOpenInput={() => openNoteInput()}
+                    onEditNote={(data) => handleEdit(data)}
                 />
             </Grid>
             { renderNoteInput() }

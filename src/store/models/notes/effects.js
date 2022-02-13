@@ -35,5 +35,6 @@ export async function getNoteDetails(id) {
 }
 
 export async function createUpdateNote (note) {
+    logInfo('Will Create and Update Note: ', note);
     upsertNote(note);
 }
