@@ -13,7 +13,7 @@ function Dialog (props) {
         open,
         children,
         onClose,
-        disableBackdropDoubleClick,
+        disableBackdropDoubleClick = true,
         ...otherProps
     } = props;
 
@@ -45,7 +45,7 @@ function Dialog (props) {
         <React.Fragment>
             <MuiDialog
                 ref={dialogRef}
-                disableBackdropClick={true}
+                disableBackdropClick={false}
                 open={open}
 
                 onClose={() => {

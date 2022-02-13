@@ -11,6 +11,7 @@
 
 import {
     getList,
+    upsertNote,
 } from './api';
 
 
@@ -33,7 +34,6 @@ export async function getNoteDetails(id) {
 
 }
 
-export async function upsertNote (note) {
-
+export async function createUpdateNote (note) {
+    upsertNote(note);
 }
-

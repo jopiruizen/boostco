@@ -61,12 +61,7 @@ export async function upsertNote (note:Note) {
         const n = newNote(details);
         localStorage.setItem(NAME_SPACE, JSON.stringify(n));
     } else {
-        const n = {
-            ...note,
-            dateCreated: now,
-            dateModified: now,
-        };
-        localStorage.setItem(NAME_SPACE, JSON.stringify(n));
+        createNote(note);
     }
 }
 

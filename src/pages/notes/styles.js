@@ -50,7 +50,7 @@ const styles = (theme) => ({
         display: 'flex',
         flexDirection: 'column !important',
         width: '100%',
-        maxHeight: '560px',
+        maxHeight: '600px',
     },
 
     notesListItem: {
@@ -68,9 +68,34 @@ const styles = (theme) => ({
         width: '100%',
     },
 
+
     noteInput: {
         width: '560px',
-        height: '400px',
+        height: '540px',
+      
+    },
+
+    noteInputTitle: {
+        width: '100%',
+        marginBottom: '24px',
+    },
+
+    noteInputContent: {
+        width: '100%',
+        marginTop: '24px',
+        marginBottom: '24px',
+    },
+
+    noteInputActions: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+    },
+
+
+    textInput: {
+        width: '100%',
     },
 });
 

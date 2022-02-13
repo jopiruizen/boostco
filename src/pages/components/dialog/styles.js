@@ -6,8 +6,8 @@ const styles = (theme) => ({
         display: 'flex',
         width: '100%',
         backgroundColor: '#FFFFFF',
-        borderRadius: '8px',
-        padding: '16px',
+        borderRadius: '16px',
+        padding: '32px',
     },
  
 });
