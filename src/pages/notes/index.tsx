@@ -7,6 +7,7 @@ import {
 
 import useNotes from './useNotes';
 import useNoteInput from './useNoteInput';
+import useConfirmation  from '../components/confirmations/useConfirmation';
 import { useStyles } from './styles';
 
 import Notes from './notes';
@@ -26,8 +27,18 @@ function NotesWrapper (props: NotesWrapperProps) {
         renderNoteInput,
         openNoteInput,
         handleEdit,
-        handleDelete,
+        deleteNote,
+        setDeleteTarget,
     } = useNoteInput();
+
+    const {
+        renderConfirmation,
+        openConfirmation,
+    } = useConfirmation({
+        title: 'Delete note',
+        message: 'Are you sure you want to delete this note?',
+        onOk: () => { deleteNote() },
+    });
 
     return (
         <React.Fragment>
@@ -36,9 +47,14 @@ function NotesWrapper (props: NotesWrapperProps) {
                     noteList={notesList}
                     onOpenInput={() => openNoteInput()}
                     onEditNote={(data) => handleEdit(data)}
+                    onDeleteNote={(data) => {
+                        setDeleteTarget(data);
+                        openConfirmation();
+                    }}
                 />
             </Grid>
             { renderNoteInput() }
+            { renderConfirmation() }
         </React.Fragment>  
     );
 }

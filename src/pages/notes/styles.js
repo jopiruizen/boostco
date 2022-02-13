@@ -102,8 +102,8 @@ const styles = (theme) => ({
 
     noteInput: {
         width: '560px',
-        height: '540px',
-      
+        height: '600px',
+        padding: '16px',
     },
 
     noteInputTitle: {

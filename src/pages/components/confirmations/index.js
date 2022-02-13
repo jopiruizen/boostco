@@ -1,80 +1,108 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
+import DialogWrapper from '../dialog';
 import {
-    Dialog as MuiDialog,
     Grid,
+    Button,
 } from '@mui/material';
 
 import { useStyles } from './styles';
 
-function Dialog (props) {
+ 
+function Confirmation (props) {
+    const classes = useStyles();
     const {
         open,
-        children,
-        onClose,
-        disableBackdropDoubleClick = true,
-        ...otherProps
+        onOk,
+        onCancel,
+        okLabel,
+        cancelLabel,
+        title,
+        message,
     } = props;
 
-    const dialogRef = useRef(null);
-    const classes = useStyles();
-    useEffect(() => {
-        if (open === true) {
-            setTimeout(() => {
-                if (dialogRef && dialogRef.current) {
-                    dialogRef.current.ondblclick = (e) => {
-                        if (disableBackdropDoubleClick) return;
-                        if (!e.srcElement) return;
-                        if (!e.srcElement.className) return;
-                        const className = e.srcElement.className;
-                        if (typeof className.indexOf === 'function' &&
-                             className.indexOf('MuiDialog-scrollPaper') !== -1) {
-                                if (typeof onClose === 'function') {
-                                    onClose();
-                                }
-                        }
-                    };
-                }
-            }, 1000);
-        }
+    const [dialogOpen, setDialogOpen] = useState(open);
 
-    }, [open]);
+
+    useEffect(() => {
+        console.log('NoteInput.useEFfect(open)', open);
+        setDialogOpen(open);
+    }, [open])
 
     return (
-        <React.Fragment>
-            <MuiDialog
-                ref={dialogRef}
-                disableBackdropClick={false}
-                open={open}
+        <DialogWrapper
+            open={dialogOpen}
+            onClose={() => {
+                if (typeof onCloseNote === 'function') {
+                    onCloseNote();
+                }
+            }}
+        >
+            <Grid className={classes.content}>
 
-                onClose={() => {
-                    if (typeof onClose === 'function') {
-                        onClose();
-                    }
-                }}
-                {...otherProps}
-            >
-                <Grid className={classes.dialogContent}>
-                    { children }
+                <Grid className={classes.contentTexts}>
+                    <Grid className={classes.title}>
+                        { title }
+                    </Grid>
+                    <Grid className={classes.message}>
+                        { message }
+                    </Grid>
                 </Grid>
-            </MuiDialog>
-        </React.Fragment>
-       
+            
+                <Grid className={classes.actions}>
+
+                    <Button
+                        id='cancel'
+                        variant='outlined'
+                        onClick={() => {
+                            if (typeof onCancel === 'function') {
+                                onCancel();
+                            }
+                        }}
+                        style={{ marginRight: '24px' }}
+                    >
+                        {cancelLabel}
+                    </Button>
+
+                    <Button
+                        id='cancel'
+                        variant='outlined'
+                        onClick={() => {
+                            if (typeof onCancel === 'function') {
+                                onOk();
+                            }
+                        }}
+                    >
+                        {okLabel}
+                    </Button>
+
+                   
+
+                </Grid>
+
+            </Grid>
+        </DialogWrapper>
     );
 }
-
-/*
-Dialog.propTypes = {
+ 
+Confirmation.propTypes = {
     open: PropTypes.bool,
-    onClose: () => {},
-    children: PropTypes.any,
+    onCancel: PropTypes.func,
+    onOk: PropTypes.func,
+    title: PropTypes.string,
+    message: PropTypes.string,
+    okLabel: PropTypes.string,
+    cancelLabel: PropTypes.string,
 };
 
-Dialog.defaultProps = {
+Confirmation.defaultProps = {
     open: false,
-    onClose: () => {},
-    children: null,
+    onCancel: () => {},
+    onOk: () => {},
+    okLabel: 'Ok',
+    cancelLabel: 'Cancel',
+    title: '',
+    message: '',
 };
-*/
-export default Dialog;
+
+export default Confirmation;

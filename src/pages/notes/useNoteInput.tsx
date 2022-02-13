@@ -8,12 +8,14 @@ function useNoteInput (props:any = {}) {
     } = props;
 
     const [open, setOpen] = useState(false);
+    const [deleteTarget, setDeleteTarget] = useState({});
     
     // const notesList = useSelector((state:RootState) => state.notes.notesList);
 
     const { 
         createUpdateNote,
         getNotesList,
+        deleteNote: storeDeleteNote,
     } = useDispatch().notes;
 
     function getInitialData () {
@@ -74,15 +76,18 @@ function useNoteInput (props:any = {}) {
         setOpen(true);
     }
 
-    function handleDelete (note) {
-
+    async function deleteNote () {
+        await storeDeleteNote(deleteTarget);
+        getNotesList();
     }
 
     return {
         openNoteInput,
         renderNoteInput,
         handleEdit,
-        handleDelete,
+
+        deleteNote,
+        setDeleteTarget,
     }
 }
 

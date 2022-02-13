@@ -7,7 +7,7 @@ const styles = (theme) => ({
         width: '100%',
         backgroundColor: '#FFFFFF',
         borderRadius: '16px',
-        padding: '32px',
+        padding: '16px',
     },
  
 });

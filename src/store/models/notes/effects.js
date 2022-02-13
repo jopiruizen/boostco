@@ -12,6 +12,7 @@
 import {
     getCollection,
     upsertNote,
+    deleteNote as deleteNoteAPI,
 } from './api';
 
 
@@ -37,4 +38,8 @@ export async function getNoteDetails(id) {
 export async function createUpdateNote (note) {
     logInfo('Will Create and Update Note: ', note);
     upsertNote(note);
+}
+
+export async function deleteNote (note) {
+    await deleteNoteAPI(note);
 }
