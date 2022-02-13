@@ -51,7 +51,7 @@ function useNoteInput (props:any = {}) {
     async function onSave () {
         await createUpdateNote({ ...input });
         setOpen(false);
-        setInput(defaultData())
+        setInput(defaultData());
         getNotesList();
     }
 

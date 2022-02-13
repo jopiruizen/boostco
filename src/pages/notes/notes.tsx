@@ -1,46 +1,43 @@
 import React, { memo } from 'react';
 import { isEmpty } from 'lodash';
 import { v4 as uuid } from 'uuid';
-import { compose } from 'redux';
+
 import {
     Grid,
     Button,
 } from '@mui/material';
-
+ 
 import { useStyles } from './styles';
+
+import NoteItem from './noteItem';
+
 // import Button from '../components/button';
 
 type NotesProps = {
     noteList?: any,
     onOpenInput?: Function,
-}
-
-function NoteItem (props:any) {
-    const {
-        note,
-    } = props;
-    return (
-        <Grid>
-            
-        </Grid>
-    )
+    onEditNote?: Function,
+    onDeleteNote?: Function,
 }
 
 function Notes (props: NotesProps) {
     const {
         onOpenInput,
         noteList,
+        onEditNote = () => {},
+        onDeleteNote = () => {},
     } = props;
     const classes = useStyles();
 
     function renderList () {
         if (!isEmpty(noteList)) {
-            console.log('NOte List: ', noteList);
             return noteList.map((note) =>{
                 return (
                     <NoteItem
                         key={uuid()}
                         note={note}
+                        onEditNote={onEditNote}
+                        onDeleteNote={onDeleteNote}
                     />
                 );
             });

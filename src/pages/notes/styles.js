@@ -46,6 +46,8 @@ const styles = (theme) => ({
         width: '100%',
     },
 
+    /* NOTE LIST */
+
     notesList: {
         display: 'flex',
         flexDirection: 'column !important',
@@ -53,21 +55,50 @@ const styles = (theme) => ({
         maxHeight: '600px',
     },
 
+
+
     notesListItem: {
         display: 'flex',
-        flexDirection: 'column !important',
+        justifyContent: 'center',
+        color: '#7A7A7A',
         width: '100%',
         height: '60px',
+        border: '1px solid #F1F1F1',
+        borderRadius: '2px',
+        marginBottom: '20px',
+        padding: '12px',
+        
+        // cursor: 'pointer',
+    },
+
+    noteListItemTexts: {
+        width: '90%',
+        display: 'flex',
+        flexDirection: 'column !important',   
+    },
+    
+    noteListItemIconSpace: {
+        display: 'flex',
     },
 
     notesListItemTitle: {
         width: '100%',
+        fontSize: '18px',
+        marginBottom: '4px',
     },
 
     notesListItemTags: {
+        fontSize: '11px',
+        color: '#7A7A7A',
         width: '100%',
     },
 
+    notesListItemIcon: {
+        width: '32px',
+        height: '32px',
+    },
+
+    /* NOTE Input */
 
     noteInput: {
         width: '560px',

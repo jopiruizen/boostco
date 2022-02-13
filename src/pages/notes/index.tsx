@@ -27,8 +27,6 @@ function NotesWrapper (props: NotesWrapperProps) {
         openNoteInput,
     } = useNoteInput();
 
-    console.log('hello are you rendering me...');
-
     return (
         <React.Fragment>
             <Grid className={classes.page}>
