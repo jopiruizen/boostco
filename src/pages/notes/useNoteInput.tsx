@@ -20,12 +20,17 @@ function useNoteInput (props:any = {}) {
         if (initialData) {
             return initialData;
         }
+        return defaultData();
+    }
+
+    function defaultData () {
         return {
             title: 'New Note',
             tags: '',
             content: '',
         };
     }
+
     const [input, setInput] = useState(getInitialData());
 
     function openNoteInput () {
@@ -46,6 +51,7 @@ function useNoteInput (props:any = {}) {
     async function onSave () {
         await createUpdateNote({ ...input });
         setOpen(false);
+        setInput(defaultData())
         getNotesList();
     }
 

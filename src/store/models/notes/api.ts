@@ -2,46 +2,48 @@ import {v4 as uuid } from 'uuid';
 import axios from 'axios';
 import { logInfo } from '../../../utils/logs';
 
-import { Note, NotesList, newNote, newNoteList } from './interface';
+import { Note, NotesCollection, newNote, newNoteCollection } from './interface';
 
 const NameSpaces = {
-    NOTES_LIST: 'notes-lists',
+    NOTES_COLLECTION: 'notes-collection',
     NOTE_DETAILS : 'note-',
 }
 
 
-export async function getList () {
-    const NAME_SPACE = NameSpaces.NOTES_LIST
+/*  THIS API SERVE AS A LOCal storage mOCK for a real API */
+
+export async function getCollection () {
+    const NAME_SPACE = NameSpaces.NOTES_COLLECTION
     const now = new Date().getTime();
-    const listData = localStorage.getItem(NAME_SPACE);
+    const collection = localStorage.getItem(NAME_SPACE);
   
-    if (!listData) {
-        const newData: NotesList = {
+    if (!collection) {
+        const newData: NotesCollection = {
             dateCreated: now,
             dateModified: now,
-            list: {},
+            collection: {},
         };
         localStorage.setItem(NAME_SPACE, JSON.stringify(newData));
         return newData;
     }
-    return JSON.parse(listData);
+    return newNoteCollection(JSON.parse(collection));
 }
 
-export async function upsertList (listdata:NotesList) {
-    const NAME_SPACE = NameSpaces.NOTES_LIST;
+export async function upsertList (data:NotesCollection) {
+    const NAME_SPACE = NameSpaces.NOTES_COLLECTION;
     const now = new Date().getTime();
 
     let store = localStorage.getItem(NAME_SPACE);
 
     if (store) {
         store = JSON.parse(store);
-        const newList = newNoteList(store);
+        const newList = newNoteCollection(store);
         newList.dateModified = now;
-        newList.list = listdata.list;
+        newList.collection = data.collection;
         localStorage.setItem(NAME_SPACE, JSON.stringify(newList));
      } else {
          const newStore = {
-             list: listdata.list,
+             collection: data.collection,
              dateCreated: now,
              dateModified: now,
          };
@@ -51,38 +53,64 @@ export async function upsertList (listdata:NotesList) {
 
 
 export async function upsertNote (note:Note) {
-    const NAME_SPACE = NameSpaces.NOTE_DETAILS + note.id;
-    const now = new Date().getTime();
 
-    let details = localStorage.getItem(NAME_SPACE);
-
-    if (details) {
-       details = JSON.parse(details)
-        const n = newNote(details);
-        localStorage.setItem(NAME_SPACE, JSON.stringify(n));
+    if (note.id) {
+        console.log('Will update NOte: ', note.id);
+        return updateNote(note);       
     } else {
-        createNote(note);
+        return createNote(note);
     }
 }
 
 export async function upsertToList (note:Note) {
-    const listData = await getList();
-    listData.list[note.id] = note;
-    upsertList(listData);
+    const nc = await getCollection();
+    if (nc.collection && note.id) {
+        nc.collection[note.id] = note;
+    }
+    upsertList(nc);
 }
 
 export  async function createNote (note:Note) {
-    const newNote = {
+    const now = new Date().getTime();
+    const source = {
         ...note,
         id: uuid(),
+        dateCreated: now,
+        dateModifed: now,
     };
-    upsertNote(newNote);
-    upsertToList(newNote);
+   
+    const NAME_SPACE = NameSpaces.NOTE_DETAILS + source.id;
+    const n = newNote(source);
+    console.log('Created: ', n);
+    localStorage.setItem(NAME_SPACE, JSON.stringify(n));
+    upsertToList(n);
+    return n;
 }
 
 export async function updateNote (note) {
-    upsertNote(note);
-    upsertToList(note);
+
+    const NAME_SPACE = NameSpaces.NOTE_DETAILS + note.id;
+    const c = newNote(note);
+    const now = new Date().getTime();
+    c.dateModified = now;
+    localStorage.setItem(NAME_SPACE, JSON.stringify(c));
+    upsertToList(c);
+    return c;
+}
+
+
+export async function deleteNote (n:Note) {
+    const NAME_SPACE = NameSpaces.NOTE_DETAILS + n.id;
+    localStorage.removeItem(NAME_SPACE);
+    deleteInCollection(n);
+}
+
+export async function deleteInCollection (n:Note) {
+    const nc = await getCollection();
+    if (nc.collection && n.id) {
+        delete nc.collection[n.id];
+    }
+    upsertList(nc);
 }
 
 export async function getClientInfo () {

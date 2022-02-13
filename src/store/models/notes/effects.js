@@ -10,7 +10,7 @@
  */
 
 import {
-    getList,
+    getCollection,
     upsertNote,
 } from './api';
 
@@ -23,9 +23,9 @@ import { dispatch } from '../..';
 export async function getNotesList() {
     logInfo('getNotesList()...');
     this.setIsLoading(true);
-    const listData = await getList();
-    logInfo('List Data: ', listData);
-    const list = Object.values(listData.list);
+    const nc = await getCollection();
+    logInfo('Notes Colection Data: ', nc);
+    const list = Object.values(nc.collection);
     logInfo('List : ', list);
     this.setNotesList(list);
 }

@@ -33,6 +33,7 @@ function NotesWrapper (props: NotesWrapperProps) {
         <React.Fragment>
             <Grid className={classes.page}>
                 <Notes
+                    noteList={notesList}
                     onOpenInput={() => openNoteInput()}
                 />
             </Grid>

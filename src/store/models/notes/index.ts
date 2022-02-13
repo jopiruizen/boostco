@@ -16,11 +16,7 @@ const initialState:NotesState = {
         dateModified: 0,
     },
 
-    notesList: {
-        list: {},
-        dateCreated: 0,
-        dateModified: 0,
-    },
+    notesList: [],
     isLoading: false,
 };
 
