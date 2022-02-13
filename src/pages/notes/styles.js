@@ -33,7 +33,45 @@ const styles = (theme) => ({
         fontWeight: 'bold',
         color: '#9A9A9A',
         bottom: 0,
-    }
+    },
+
+    buttonSpace: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+    },
+
+    addNote: {
+        width: '100%',
+    },
+
+    notesList: {
+        display: 'flex',
+        flexDirection: 'column !important',
+        width: '100%',
+        maxHeight: '560px',
+    },
+
+    notesListItem: {
+        display: 'flex',
+        flexDirection: 'column !important',
+        width: '100%',
+        height: '60px',
+    },
+
+    notesListItemTitle: {
+        width: '100%',
+    },
+
+    notesListItemTags: {
+        width: '100%',
+    },
+
+    noteInput: {
+        width: '560px',
+        height: '400px',
+    },
 });
 
 export default styles;

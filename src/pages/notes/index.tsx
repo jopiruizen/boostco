@@ -6,47 +6,43 @@ import {
 } from '@mui/material';
 
 import useNotes from './useNotes';
+import useNoteInput from './useNoteInput';
 import { useStyles } from './styles';
 
+import Notes from './notes';
 
-type NotesProps = {
+type NotesWrapperProps = {
 
 }
 
-function Notes (props: NotesProps) {
+function NotesWrapper (props: NotesWrapperProps) {
     const classes = useStyles();
 
     const {
         notesList,
     } = useNotes();
 
+    const {
+        renderNoteInput,
+        openNoteInput,
+    } = useNoteInput();
+
     console.log('hello are you rendering me...');
 
     return (
-        <Grid className={classes.page}>
-            <Grid className={classes.content}>
-                <Grid className={classes.notelistContent}>
-
-                </Grid>
-                <Grid className={classes.notelistFooter}>
-                    Minimalist Note
-                </Grid>
+        <React.Fragment>
+            <Grid className={classes.page}>
+                <Notes
+                    onOpenInput={() => openNoteInput()}
+                />
             </Grid>
-        </Grid>
+            { renderNoteInput() }
+        </React.Fragment>  
     );
 }
-
-
-Notes.propTypes = {
-
-};
-
-Notes.defaultProps = {
-
-};
 
 const enhancers = [
     memo,
 ];
 
-export default compose(...enhancers)(Notes);
+export default compose(...enhancers)(NotesWrapper);

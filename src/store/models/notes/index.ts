@@ -1,21 +1,26 @@
 import { createModel } from "@rematch/core";
 import { RootModel } from "../";
 
-import omit from 'lodash/omit';
 import * as effects from './effects';
 import reducer from './reducers';
-import * as selectors from './selectors';
+// import * as selectors from './selectors';
+import { NotesState } from "./interface";
 
-const initialState = {
+const initialState:NotesState = {
     noteDetails: {
         id: '',
         title: '',
         content: '',
         tags: '',
-        dateCreated: '',
-        dateModified: '',
+        dateCreated: 0,
+        dateModified: 0,
     },
-    notesList: [],
+
+    notesList: {
+        list: {},
+        dateCreated: 0,
+        dateModified: 0,
+    },
     isLoading: false,
 };
 
@@ -27,7 +32,6 @@ const notes = createModel<RootModel>() ({
     reducers: {
         ...reducer.reducers,
     },
-
     // selectors: () => {},
     /*
     selectors: (slice,createSelector, hasProps) => ({

@@ -28,11 +28,11 @@
   ],
 
   "exclude": [
-    "node_modules",
     "src/utils/**",
     "src/theme/",
     "src/theme/**",
     "src/**/*.js",
-    "src/**/*.jsx"
+    "src/**/*.jsx",
+    "src/**/*.test.tsx",
   ]
 }

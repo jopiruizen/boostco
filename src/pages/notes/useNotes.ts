@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { logInfo } from '../../utils/logs';
-
-function useNote () {
+ 
+function useNotes () {
     const notesList = useSelector((state:RootState) => state.notes.notesList);
 
     const { 
@@ -23,4 +23,4 @@ function useNote () {
     };
 }
 
-export default useNote;
+export default useNotes;

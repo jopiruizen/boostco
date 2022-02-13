@@ -1,4 +1,3 @@
-
 export function logInfo (...args) {
     const env = process.env.REACT_APP_ENV_VAR;
     if (env === 'prod') {
